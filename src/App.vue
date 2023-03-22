@@ -32,13 +32,18 @@
     </div>
     <div class="column">
       <h4><b>Your New Password:</b></h4>
-      <span>{{ newPassword }}</span>
+      <div class="control my-copy">
+        <input id="input-password" class="input" type="text" disabled v-model="newPassword">
+        <button class="button is-info is-right" @click="copyPassword()">Copy</button>
+      </div>
     </div>
     <div class="column is-1"></div>
   </div>
 </template>
 
 <script>
+import Swal from 'sweetalert2';
+
 export default {
   data() {
     return {
@@ -80,6 +85,25 @@ export default {
 
       this.newPassword = password;
     },
+    async copyPassword() {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'bottom-end',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+
+      await navigator.clipboard.writeText(this.newPassword);
+      Toast.fire({
+        icon: 'success',
+        title: 'Copied!'
+      })
+    }
   }
 }
 </script>
@@ -87,5 +111,13 @@ export default {
 <style>
 .is-range{
   width: 80%;
+}
+
+.my-copy input{
+  width: 80%;
+}
+
+.my-copy button{
+  width: 20%;
 }
 </style>

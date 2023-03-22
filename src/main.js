@@ -4,4 +4,5 @@ import App from './App.vue'
 import './assets/main.css'
 import '../node_modules/bulma/css/bulma.min.css'
 
-createApp(App).mount('#app')
+createApp(App)
+    .mount('#app')
