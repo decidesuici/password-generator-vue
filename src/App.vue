@@ -27,14 +27,14 @@
         </label>
       </div>
       <div class="control mt-3">
-        <button class="button is-primary" @click="generatePassword()">Generate Password</button>
+        <button class="button is-info" @click="generatePassword()">Generate Password</button>
       </div>
     </div>
     <div class="column">
       <h4><b>Your New Password:</b></h4>
       <div class="control my-copy">
         <input id="input-password" class="input" type="text" disabled v-model="newPassword">
-        <button class="button is-info is-right" @click="copyPassword()">Copy</button>
+        <button class="button is-info is-right" @click="copyPassword()" v-bind:disabled="!newPassword">Copy</button>
       </div>
     </div>
     <div class="column is-1"></div>
@@ -51,7 +51,7 @@ export default {
       checkCapitals: false,
       checkNumbers: false,
       checkSymbols: false,
-      newPassword: "Your Password...",
+      newPassword: "",
     }
   },
   methods: {
@@ -115,6 +115,7 @@ export default {
 
 .my-copy input{
   width: 80%;
+  cursor: text!important;
 }
 
 .my-copy button{
